@@ -1,0 +1,307 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+
+
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="copyright" content="Copyright (c) PhoneToolToo S.A.S." />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+ <link media="only screen and (max-device-width: 480px)" href="Styles/styles_phone.css" type= "text/css" rel="stylesheet">
+  <link media="screen and (min-device-width: 481px)" href="Styles/styles_pad.css" type="text/css" rel="stylesheet">
+
+
+<script language="javascript" type="text/javascript"  src="Scripts/circuitoVC_2.js"></script>
+<script language="javascript" type="text/javascript"  src="Scripts/GUI_Form_CircuitoVC.js"></script>
+<!--<link rel="stylesheet" type="text/css" href="mystylesheet.css" />-->
+
+
+
+
+
+</head>
+
+
+<body onload="iniciar('0');">
+
+<div id="titleHead"><h1 class="interior"> App Divider I/V</h1></div>
+
+
+<div id="m1">
+
+
+
+<div id="p1">
+
+<form>
+<!--<a href="#"  class ="button blue" style="width:130px;">HTMLProtoBoard</a></br></br>-->
+<a href="#" onclick="cambiarTipo();" class ="button blue" style="width:130px;;height:30px;" id="accion">Ir a Divisor de Voltaje</a>
+</br></br>
+<a href="#" onclick="mostrarConfiguracion();" class ="button blue" style="width:130px;;height:30px;" id="boton_configurar">Configurar</a>
+<input type="hidden" name="Campo" id="Campo"/>
+
+</form>
+
+</div>
+
+
+<div id = "p2">
+
+<form>
+
+<div id="tf" class ="3d1"><table><tr><td><p id="c2">Current:</p></td><td><p>(</p></td><td><p id="u1" >Amperes</p><td><p>):</p></td></td><td><input type="text"  class="input1"   value="0" id="valor_fuente" width="5" onchange="calcular()"/></td></tr>
+<tr><td><p id="r2">Resistence:</p></td><td><p>(</p></td><td><p id="u2">Ohm</p></td><td><p>):</p></td><td><input type="text"   class="input1" value="0" id="valor_r"  width="5"/></td></tr></table></div>
+
+<!--<div id="tr" class ="3d1"><table><tr><td><p id="r2">Resistence:</p></td><td><p>(</p></td><td><p id="u2">Ohm</p></td><td><p>):</p></td><td><input type="text"   class="input1" value="0" id="valor_r"  width="5"/></td></tr></table></div>-->
+
+<a href="#" class="button blue"  onclick="add();" style="width:130px;height:30px;" id="nueva_resistencia"><div id="addr">Agregar Resistencia</div></a>
+
+
+<!--<a href="#" onclick="calcular();" class ="button blue" style="width:130px;"><div id="calc">Calcular</div></a></br></br>-->
+
+</form>
+<div  id ="supTabla"  style="visibility:hidden;width:400px;height:600px;z-index:0">
+
+<table id="tabla" border="0"  style="width:100%;z-index:1;" class="tabla">
+<tr id="head"><th style="width:10%;">Id</th><th  style="width:15%;"><div id="r1">Resistence</div></th><th  style="width:15%;"><div id="v1">Voltage</div></th><th  style="width:15%;"><div id="c1">Current</div></th><th  style="width:20%;"><div id="p11">Power</div></th><th  style="width:25%;"></th></tr>
+
+</table>
+
+
+<table  id="tabla2" border="0"  style="width:100%;z-index:1;" class="tabla">
+<tr>
+<td style=""><div id="tpower">Total Power:</div></td>
+<td id="pT">0</td>
+<td id ="tp">Watts</td>
+</tr>
+
+<tr>
+<td><div id="req">R equivalent:</div></td>
+<td id="rEq">0</td>
+<td id="tro">Ohms</td>
+</tr>
+
+<tr>
+<td><div id="vnorton">V norton:</div></td>
+<td id="VN">0</td>
+<td id="tvn">Volts</td>
+</tr>
+
+<tr>
+<td><div id="ith">I thevenin:</div></td>
+<td id="IT">0</td>
+<td id="tit">Amperes</script></td>
+</tr>
+
+</table>
+
+
+
+</div>
+
+
+
+
+</div>
+</div>
+<div id="contenedor">
+<canvas id="hola" width= "1050"; height="300" >
+
+</canvas>
+</div>
+<!--contenedor-->
+</div>
+
+
+<div id="popup_mensaje" class="popupMensaje">
+<table  style="width:100%;">
+<tr><td style="width90%;"></td><td style="width:10%;"><div style="font: 20px/100%;font-family: Arial Unicode MS;"><a href="#" class ="simbolo">&#10008</a></div></td></tr>
+</table>
+<hr width="100%">
+<div><h1 id="mensaje" class="interior2"><div id="mensaje">Message</div></h1></div></br>
+
+</div>
+
+<div id="configurar" >
+<table  style="width:100%;">
+<tr><td style="width90%;"></td><td style="width:10%;"><div style="font: 30px/100%;font-size:20px ;font-family: Arial Unicode MS"><a href="#" class ="simbolo">&#10004</a></div></td></tr>
+</table>
+<hr width="100%">
+
+<form name="configurar">
+
+<dl>
+<dt id="dn">Decimals Number</dt>
+<ul id="decimalsConfiguration">
+<li>
+<input type="radio" value="2" id="numberDecimal1"  name="numberDecimal" checked="checked"   onchange="actualizar();"/>
+<label for="numberDecimal1">2</label>
+</li>
+<li>
+<input type="radio" value="4" id="numberDecimal2"  name="numberDecimal"   onchange="actualizar();"/>
+<label for="numberDecimal2">4</label>
+</li>
+<li>
+<input type="radio" value="6" id="numberDecimal3"  name="numberDecimal"   onchange="actualizar();"/>
+<label for="numberDecimal3">6</label>
+</li>
+<li>
+<input type="radio" value="8" id="numberDecimal4"  name="numberDecimal"   onchange="actualizar();"/>
+<label for="numberDecimal4">8</label>
+</li>
+</ul>
+<hr width="100%">
+
+<dt><div id="diag_l">Line Diagram</div></dt>
+
+<dd>
+<input type="checkbox" value="0" id="isShadow"  name="isShadow"   onchange="actualizar();"/>
+<label for="isShadow"  id="sh">Is Shadow</label>
+</dd>
+<hr width="100%">
+<dt><div id="bch">By Change Divider</div></dt>
+
+<dd>
+<input type="radio" value="0" name="swDIV" id="swDIV1"   onchange="actualizar();" />
+<label for="swDIV1"  id="tpc">Total Power is Constant</label>
+</dd>
+<dd>
+<input type="radio" value="1" name="swDIV"  id="swDIV2" checked="checked"   onchange="actualizar();"/>
+<label for="swDIV2"  id="ncs">Not change Sources</label>
+</dd>
+<hr width="100%">
+<dt><div id="mu">Measure Units</div></dt>
+
+<dd>
+
+<dt><div id="v3">Voltage</div></dt>
+
+<dd>
+<input type="radio" value="0"  id="unidadVoltaje1" name="unidadVoltaje"   onchange="actualizar();"/>
+<label for="unidadVoltaje1" id="mv3">miliVolts</label>
+</dd>
+
+<dd>
+<input type="radio" value="1"   id="unidadVoltaje2" checked="checked" name="unidadVoltaje"   onchange="actualizar();"/>
+<label for="unidadVoltaje2" id="vv3">Volts</label>
+</dd>
+
+<dd>
+<input type="radio" value="2"   id="unidadVoltaje3" name="unidadVoltaje"   onchange="actualizar();"/>
+<label for="unidadVoltaje3" id="kv3">kiloVolts</label>
+</dd>
+
+</dd>
+
+<dd>
+
+<dt><div id="r3">Resistence</div></dt>
+
+<dd>
+<input type="radio" value="0"  id="unidadResistencia1" name="unidadResistencia"   onchange="actualizar();"/>
+<label for="unidadResistencia1"  id="mr3">miliOhms</label>
+</dd>
+
+<dd>
+<input type="radio" value="1"   id="unidadResistencia2" name="unidadResistencia" checked="checked"   onchange="actualizar();"/>
+<label for="unidadResistencia2" id="rr3">Ohms</label>
+</dd>
+
+<dd>
+<input type="radio" value="2"   id="unidadResistencia3" name="unidadResistencia"   onchange="actualizar();"/>
+<label for="unidadResistencia3" id="kr3">kiloOhms</label>
+</dd>
+
+</dd>
+
+<dd>
+
+<dt><div id="c3">Current</div></dt>
+
+<dd>
+<input type="radio" value="0"   id="unidadCorriente1" name="unidadCorriente"   onchange="actualizar();"/>
+<label for="unidadCorriente1"  id="mc3">miliAmperes</label>
+</dd>
+
+<dd>
+<input type="radio" value="1"  id="unidadCorriente2" name="unidadCorriente" checked="checked"    onchange="actualizar();"/>
+<label for="unidadCorriente2"  id="cc3">Amperes</label>
+</dd>
+
+<dd>
+<input type="radio" value="2"   id="unidadCorriente3" name="unidadCorriente"   onchange="actualizar();"/>
+<label for="unidadCorriente3" id="kc3">kiloAmperes</label>
+</dd>
+</dd>
+
+<dd>
+
+<dt><div id="pw3">Power</div></dt>
+
+<dd>
+<input type="radio" value="0"   id="unidadPotencia1" name="unidadPotencia"   onchange="actualizar();"/>
+<label for="unidadPotencia1"  id="mpw3">miliWatt</label>
+</dd>
+
+<dd>
+<input type="radio" value="1"  id="unidadPotencia2" name="unidadPotencia" checked="checked"    onchange="actualizar();"/>
+<label for="unidadPotencia2"  id="cpw3">Watt</label>
+</dd>
+
+<dd>
+<input type="radio" value="2"   id="unidadPotencia3" name="unidadPotencia"   onchange="actualizar();"/>
+<label for="unidadPotencia3" id="kpw3">kiloWatt</label>
+</dd>
+
+</dd>
+<hr width="100%">
+<dt id ="lg">Languaje</dt>
+
+<dd>
+<input type="radio" value="0"   id="idioma1"  name="idioma" checked="checked"  onchange="actualizar();"/>
+<label for="idioma1" id="eng">English</label>
+</dd>
+
+<dd>
+<input type="radio" value="1"    id="idioma2"  name="idioma"   onchange="actualizar();"/>
+<label for="idioma2" id="es">Spanish</label>
+</dd>
+
+<dd>
+<input type="radio" value="2"    id="idioma3"  name="idioma"   onchange="actualizar();"/>
+<label for="idioma3" id="fr">French</label>
+</dd>
+
+<dd>
+<input type="radio" value="3"     id="idioma4"  name="idioma"   onchange="actualizar();"/>
+<label for="idioma4" id="de">German</label>
+</dd>
+
+<dd>
+<input type="radio" value="4"     id="idioma5"  name="idioma"   onchange="actualizar();"/>
+<label for="idioma5" id="pt">Portuguesse</label>
+</dd>
+
+<dd>
+<input type="radio" value="5"    id="idioma6"  name="idioma"   onchange="actualizar();"/>
+<label for="idioma6" id="it">Italian</label>
+</dd>
+
+
+</dl>
+
+</form>
+
+
+
+</div>
+
+<div id="copy_rigth" style="color:white;">Copyright (c) : William Eduardo Sanchez Esparragoza,  PhoneToolToo S.A.S. All Rights Reserved</div>
+
+
+</body>
+
+</html>
